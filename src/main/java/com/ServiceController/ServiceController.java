@@ -125,7 +125,7 @@ public class ServiceController {
         
         //code to call timing
         
-        return "Still not implemented!";
+        return "Still not implemented - timing part!";
     }
 
 }
