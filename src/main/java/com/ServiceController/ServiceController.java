@@ -88,19 +88,23 @@ public class ServiceController {
                               @RequestParam(value = "pitch", defaultValue = "N") String pitch) 
     {
       String outPut = infile+" "+pitch;
-      String basePath = "C:\\LireFiles\\SoundProfiles\\01\\";
+      String basePath = "I:\\chami_Projects\\tbvsf_timeline\\public_html\\voice_profiles\\01\\";
       
       
         if("H".equals(pitch)){
             Pitch p = new Pitch(1.18f, 1.18f, basePath);
             String outFile = basePath+"H-"+infile;
+            
+            System.out.println("out file - "+outFile);
             outPut = p.changePitch(infile, outFile);
+            System.out.println("pitch returned - "+outPut);
             return "H-"+infile;
         }
         else if("L".equals(pitch)){
             Pitch p = new Pitch(0.88f, 0.88f, basePath);
             String outFile = basePath+"L-"+infile;
             outPut = p.changePitch(infile, outFile);
+            System.out.println("pitch returned - "+outPut);
             return "L-"+infile;
         }
 //        else if("N".equals(pitch))

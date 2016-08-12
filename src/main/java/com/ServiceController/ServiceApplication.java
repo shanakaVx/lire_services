@@ -22,9 +22,9 @@ public class ServiceApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/prosody/changepitch").allowedOrigins("http://localhost:8383");
-                registry.addMapping("/prosody/changepitch").allowedOrigins("http://localhost:8383");
-                registry.addMapping("/prosody/changepitch").allowedOrigins("http://localhost:8383");
-                registry.addMapping("/prosody/changepitch").allowedOrigins("http://localhost:8383");
+                registry.addMapping("/prosody/changetiming").allowedOrigins("http://localhost:8383");
+                registry.addMapping("/tokenize/sentenceTree").allowedOrigins("http://localhost:8383");
+                registry.addMapping("/tokenize/directTokenize").allowedOrigins("http://localhost:8383");
             }
         };
     }   

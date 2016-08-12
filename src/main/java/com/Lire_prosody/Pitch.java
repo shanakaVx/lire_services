@@ -56,8 +56,10 @@ public class Pitch {
         
         Envelope pitchEnvelope = new Envelope(ac, startPitch); //starting pitch- notmal
 
+        System.out.println("Writing to a file trying...");
         //trigger to write and end the file
         Bead myTrigger = new Bead() {
+            @Override
             public void messageReceived(Bead message) {
                 System.out.println("Processing complete... Writing to file");
 
@@ -86,10 +88,11 @@ public class Pitch {
         ac.out.addDependent(recordToSample);
         
         //following ac.start() it will record while playing. slow, because it takes playback time to record
-        ac.start();
+        //ac.start();
         
         //following ac.runNonRealTime() it will record without playing. fast, it takes fraction of a second
-        //ac.runNonRealTime();
+        ac.runNonRealTime();
+        System.out.println("---PITCH RETURNED--- outputted to "+outFile);
          return outFile;
         
     }
