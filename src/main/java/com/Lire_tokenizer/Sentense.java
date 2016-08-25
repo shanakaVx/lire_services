@@ -23,7 +23,7 @@ import opennlp.tools.tokenize.TokenizerModel;
  * @author Shanaka
  */
 public class Sentense {
-    private String basePath = "C:\\Users\\Shanaka\\Desktop\\lireServices\\";
+    private String basePath = "src\\main\\java\\com\\Lire_tokenizer\\";
     private BigInteger id = BigInteger.ZERO;
     private Map<BigInteger, Word> wordMap = new HashMap<BigInteger, Word>();
     

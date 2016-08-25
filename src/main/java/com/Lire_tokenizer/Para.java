@@ -24,7 +24,7 @@ import opennlp.tools.sentdetect.SentenceModel;
 
 public class Para {
     
-    private String basePath = "C:\\Users\\Shanaka\\Desktop\\lireServices\\";
+    private String basePath = "src\\main\\java\\com\\Lire_tokenizer\\";
 
     //private List<Sentense> sent = new ArrayList<Sentense>();
     private BigInteger id = BigInteger.ZERO;
@@ -48,6 +48,8 @@ public class Para {
         Sentense sent = new Sentense();
         
         for(String s : detected){
+            //identify non letters
+            
             letters.add(sent.directTokenize(s));
         }
         
@@ -57,6 +59,7 @@ public class Para {
     
     public String[] detectSentensesNLP(String str) throws FileNotFoundException, IOException{
         InputStream is = new FileInputStream(basePath+"TrainingSets\\sentenceTrained-si");
+        //InputStream is = new FileInputStream("src\\main\\java\\com\\Lire_tokenizer\\trainingSets\\sentenceTrained-si");
         SentenceModel model = new SentenceModel(is);
         SentenceDetectorME sdetector = new SentenceDetectorME(model);
 

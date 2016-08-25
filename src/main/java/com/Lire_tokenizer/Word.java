@@ -22,7 +22,7 @@ import opennlp.tools.tokenize.TokenizerModel;
  */
 public class Word {
 
-    private String basePath = "C:\\Users\\Shanaka\\Desktop\\lireServices\\";
+    private String basePath = "src\\main\\java\\com\\Lire_tokenizer\\";
     
     private List<String> letter = new ArrayList<>();
     //private Map<BigInteger, String[]> wordMap;

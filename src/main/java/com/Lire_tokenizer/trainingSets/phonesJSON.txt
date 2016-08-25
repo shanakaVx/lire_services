@@ -1,0 +1,58 @@
+{
+  "type": "phones",
+  "para": {
+    "sent1": {
+      "word1": {
+        "l1": "a",
+        "l2": "m",
+        "l3": "ma",
+        "l4": "COMMA"
+      },
+      "word2": {
+        "11": "ba",
+        "l2": "th"
+      },
+      "word3": {
+        "l1": "ka",
+        "l2": "wa",
+        "l3": "STOP"
+      }
+    },
+    "sent2": {
+      "word1": {
+        "l1": "a",
+        "l2": "m",
+        "l3": "ma",
+        "l4": "COMMA"
+      },
+      "word2": {
+        "11": "ba",
+        "l2": "th"
+      },
+      "word3": {
+        "l1": "ka",
+        "l2": "wa",
+        "l3": "STOP"
+      }
+    },
+    "sent3": {
+      "word1": {
+        "l1": "a",
+        "l2": "m",
+        "l3": "ma",
+        "l4": "COMMA"
+      },
+      "word2": {
+        "11": "ba",
+        "l2": "th"
+      },
+      "word3": {
+        "l1": "ka",
+        "l2": "wa",
+        "l3": "STOP"
+      }
+    }
+  },
+  "sentcount": 3,
+  "wordcount": 9
+}
