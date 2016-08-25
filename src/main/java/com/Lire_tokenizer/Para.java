@@ -19,7 +19,7 @@ import opennlp.tools.sentdetect.SentenceModel;
 
 /**
  *
- * @author Shanaka
+ * @author Shanaka Caldera
  */
 
 public class Para {
@@ -52,14 +52,12 @@ public class Para {
             
             letters.add(sent.directTokenize(s));
         }
-        
         return letters;
     }
     
     
     public String[] detectSentensesNLP(String str) throws FileNotFoundException, IOException{
         InputStream is = new FileInputStream(basePath+"TrainingSets\\sentenceTrained-si");
-        //InputStream is = new FileInputStream("src\\main\\java\\com\\Lire_tokenizer\\trainingSets\\sentenceTrained-si");
         SentenceModel model = new SentenceModel(is);
         SentenceDetectorME sdetector = new SentenceDetectorME(model);
 
