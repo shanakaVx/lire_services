@@ -7,6 +7,7 @@ package com.ServiceController;
 
 import com.Lire_prosody.*;
 import com.Lire_tokenizer.*;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -92,20 +93,31 @@ public class ServiceController {
                               @RequestParam(value = "timing", defaultValue = "N") String timing) 
     {
         String outPut = infile+" "+pitch;
-        
+                
         //change timing first
         if("L".equals(timing)){
+            if(filePresent("L-"+infile))
+                return "L-"+infile;
+            
+            //code
             
             infile = "L-"+infile;
         }
 
         else if("S".equals(timing)){
+            if(filePresent("S-"+infile))
+                return "S-"+infile;
+            
+            //code
             
             infile = "S-"+infile;
         }
 
         //change pitch
         if("H".equals(pitch)){
+            if(filePresent("H-"+infile))
+                return "H-"+infile;
+            
             Pitch p = new Pitch(1.18f, 1.18f, basePath);
             String outFile = basePath+"H-"+infile;
 
@@ -115,6 +127,9 @@ public class ServiceController {
             infile = "H-"+infile;
         }
         else if("L".equals(pitch)){
+            if(filePresent("L-"+infile))
+                return "L-"+infile;
+            
             Pitch p = new Pitch(0.88f, 0.88f, basePath);
             String outFile = basePath+"L-"+infile;
             outPut = p.changePitch(infile, outFile);
@@ -123,6 +138,17 @@ public class ServiceController {
         }
 
         return infile;
+    }
+    
+    
+    private boolean filePresent(String infile){
+        File f = new File(basePath + infile);
+        if(f.exists() && !f.isDirectory()) { 
+            System.out.println("File exsists and returning same filename " + basePath + infile);
+            return true;
+        }
+        else
+            return false;
     }
     
     
