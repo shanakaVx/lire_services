@@ -28,6 +28,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ServiceController {
     
+    String basePath = "C:\\wamp\\www\\LireFrontend\\voiceprofiles\\1\\";
+    
 /*
 * Shows a help at the base URL
 */
@@ -78,39 +80,49 @@ public class ServiceController {
     
   
 /*
-* Calls the pitch change function
+* Calls the pitch and timing change function
 */
     
     @RequestMapping(
-            value = "/prosody/changepitch",
+            value = "/prosody/changeprosody",
             method = RequestMethod.GET)
+    
     public String changePitch(@RequestParam(value = "filename", defaultValue = "null") String infile,
-                              @RequestParam(value = "pitch", defaultValue = "N") String pitch) 
+                              @RequestParam(value = "pitch", defaultValue = "N") String pitch,
+                              @RequestParam(value = "timing", defaultValue = "N") String timing) 
     {
-      String outPut = infile+" "+pitch;
-      String basePath = "I:\\chami_Projects\\tbvsf_timeline\\public_html\\voice_profiles\\01\\";
-      
-      
+        String outPut = infile+" "+pitch;
+        
+        //change timing first
+        if("L".equals(timing)){
+            
+            infile = "L-"+infile;
+        }
+
+        else if("S".equals(timing)){
+            
+            infile = "S-"+infile;
+        }
+
+        //change pitch
         if("H".equals(pitch)){
             Pitch p = new Pitch(1.18f, 1.18f, basePath);
             String outFile = basePath+"H-"+infile;
-            
+
             System.out.println("out file - "+outFile);
             outPut = p.changePitch(infile, outFile);
             System.out.println("pitch returned - "+outPut);
-            return "H-"+infile;
+            infile = "H-"+infile;
         }
         else if("L".equals(pitch)){
             Pitch p = new Pitch(0.88f, 0.88f, basePath);
             String outFile = basePath+"L-"+infile;
             outPut = p.changePitch(infile, outFile);
             System.out.println("pitch returned - "+outPut);
-            return "L-"+infile;
+            infile = "L-"+infile;
         }
-//        else if("N".equals(pitch))
-//            return infile;
-        else
-            return infile;
+
+        return infile;
     }
     
     

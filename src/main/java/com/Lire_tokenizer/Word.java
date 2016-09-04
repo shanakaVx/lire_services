@@ -42,6 +42,7 @@ public class Word {
         Tokenizer tokenizer = new TokenizerME(model);
         List<String> letterCode = new ArrayList<>();
         String tokens[] = tokenizer.tokenize(str);
+        String test = "";
         for (String a : tokens) {
             System.out.println(a);
             letterCode.add(mapLetterToTone(a));
@@ -68,7 +69,7 @@ public class Word {
         //check for other letters
         for (int i = 0; i < letter.length(); i++) {
             int code = (int) letter.charAt(i);
-
+            System.out.println("code ="+code);
             //first charactor
             if (i == 0) {
 
