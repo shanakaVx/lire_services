@@ -21,10 +21,17 @@ public class ServiceApplication {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
+                //allowing localhost to access services (WAMP)
+                registry.addMapping("/prosody/changeprosody").allowedOrigins("http://localhost");
+                registry.addMapping("/prosody/changetiming").allowedOrigins("http://localhost");
+                registry.addMapping("/tokenize/sentenceTree").allowedOrigins("http://localhost");
+                registry.addMapping("/tokenize/directTokenize").allowedOrigins("http://localhost");
+                
+                //allowing localhost:8088 to access serices
                 registry.addMapping("/prosody/changeprosody").allowedOrigins("http://localhost:8088");
                 registry.addMapping("/prosody/changetiming").allowedOrigins("http://localhost:8088");
-                registry.addMapping("/tokenize/sentenceTree").allowedOrigins("http://localhost:8388");
-                registry.addMapping("/tokenize/directTokenize").allowedOrigins("http://localhost:8383");
+                registry.addMapping("/tokenize/sentenceTree").allowedOrigins("http://localhost:8088");
+                registry.addMapping("/tokenize/directTokenize").allowedOrigins("http://localhost:8088");
             }
         };
     }   

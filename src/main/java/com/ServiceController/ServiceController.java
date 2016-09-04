@@ -169,5 +169,14 @@ public class ServiceController {
         
         return "Still not implemented - timing part!";
     }
+    
+    
+/*
+* Calls the recording splitting and saving function
+*/
+    
+    //Kim do your function here looking at above functions. I have  made a class in com.Lire_recording
+    //use that class
+    
 
 }
