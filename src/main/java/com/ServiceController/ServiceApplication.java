@@ -29,11 +29,11 @@ public class ServiceApplication {
                 registry.addMapping("/download").allowedOrigins("http://localhost");
                 
                 //allowing localhost:8088 to access serices
-                registry.addMapping("/prosody/changeprosody").allowedOrigins("http://localhost:8088");
-                registry.addMapping("/prosody/changetiming").allowedOrigins("http://localhost:8088");
-                registry.addMapping("/tokenize/sentenceTree").allowedOrigins("http://localhost:8088");
-                registry.addMapping("/tokenize/directTokenize").allowedOrigins("http://localhost:8088");
-                registry.addMapping("/download").allowedOrigins("http://localhost:8088");
+//                registry.addMapping("/prosody/changeprosody").allowedOrigins("http://localhost:8088");
+//                registry.addMapping("/prosody/changetiming").allowedOrigins("http://localhost:8088");
+//                registry.addMapping("/tokenize/sentenceTree").allowedOrigins("http://localhost:8088");
+//                registry.addMapping("/tokenize/directTokenize").allowedOrigins("http://localhost:8088");
+//                registry.addMapping("/download").allowedOrigins("http://localhost:8088");
             }
         };
     }   
