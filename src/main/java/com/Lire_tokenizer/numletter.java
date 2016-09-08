@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.json.*;
 
 /**
  *
@@ -158,8 +157,6 @@ public class numletter {
         tenPrefix.put(7, "හැත්තෑ");
         tenPrefix.put(8, "අසූ");
         tenPrefix.put(9, "අනූ");
-
-
         
         hundredsPart.put(1, "");
         hundredsPart.put(2, "සීය");
@@ -180,7 +177,7 @@ public class numletter {
     }
     
     public String numberToText(String line){
-        
+        System.out.println("detecting numbers");
         //regular expression patterns to match
         String dateYMD = "[0-9]{2,4}(/|-)(0[1-9]|1[0-2]|[1-9])(/|-)(0[1-9]|(1|2)[0-9]|3[0-1]|[1-9])";
         String number = "([0-9]+\\.[0-9]+|[0-9]+)";
@@ -226,7 +223,7 @@ public class numletter {
         }
         parts.clear();
         System.out.println(line);
-        return "";
+        return line;
     }
     
     
@@ -316,18 +313,18 @@ public class numletter {
         String month = "";
         year += "යි";
         switch(Integer.parseInt(parts[1])){
-            case 1	:month = "Janawari"; break;
-            case 2	:month = "Peba"; break;
-            case 3	:month = "Maar"; break;
-            case 4	:month = "Aprel"; break;
-            case 5	:month = "myi"; break;
-            case 6	:month = "Juni"; break;
-            case 7	:month = "July"; break;
-            case 8	:month = "agostu"; break;
-            case 9	:month = "sapthambar"; break;
-            case 10	:month = "oct"; break;
-            case 11	:month = "nov"; break;
-            case 12	:month = "decembar"; break;
+            case 1	:month = "ජනවාරි "; break;
+            case 2	:month = "පෙබරවාරි"; break;
+            case 3	:month = "මාර්තු"; break;
+            case 4	:month = "අප්‍රේල්"; break;
+            case 5	:month = "මැයි"; break;
+            case 6	:month = "ජුනි"; break;
+            case 7	:month = "ජුලි"; break;
+            case 8	:month = "අගෝස්තු"; break;
+            case 9	:month = "සැප්තැම්බර්"; break;
+            case 10	:month = "ඔක්තෝබර්"; break;
+            case 11	:month = "නොවැම්බර්"; break;
+            case 12	:month = "දෙසැම්බර්"; break;
             default     :month = "";
         }
         String day = identifyNumber(parts[2]);

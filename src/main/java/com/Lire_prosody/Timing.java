@@ -42,10 +42,4 @@ public class Timing {
     return "";
     }   
     
-    public static void main (String[] args){
-    
-    
-    
-    
-    }
 }

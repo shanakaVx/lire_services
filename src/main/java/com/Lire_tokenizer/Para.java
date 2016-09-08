@@ -49,7 +49,8 @@ public class Para {
         
         for(String s : detected){
             //identify non letters
-            
+            numletter converter = new numletter();
+            s = converter.numberToText(s);
             letters.add(sent.directTokenize(s));
         }
         return letters;

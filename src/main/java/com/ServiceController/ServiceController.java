@@ -17,9 +17,12 @@ import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -178,5 +181,16 @@ public class ServiceController {
     //Kim do your function here looking at above functions. I have  made a class in com.Lire_recording
     //use that class
     
-
+    @RequestMapping(value = "/download", 
+                    method = RequestMethod.GET)
+    @ResponseBody
+    public String download(@RequestParam(value = "tones", defaultValue = "null") String tones){
+      System.out.println(tones);
+      String parts[] = tones.split(",");
+      
+      downloadData dwn = new downloadData(parts);      
+      return dwn.prepare();
+    }
+    
+    
 }
