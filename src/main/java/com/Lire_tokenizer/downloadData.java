@@ -22,9 +22,9 @@ import java.util.logging.Logger;
  */
 public class downloadData {
     private final String[] tones;
-    private final String basePath = "C:\\wamp\\www\\LireFrontend\\voiceprofiles\\1\\";
+    private final String basePath = "C:\\xampp\\htdocs\\LireFrontend\\voiceprofiles\\1\\";
     private final String ffmpegPath = "C:\\lire_libraries\\ffmpeg-20160517-git-af3e944-win64-static\\bin\\ffmpeg";
-    private final String outfilePath = "C:\\wamp\\www\\LireFrontend\\voiceprofiles\\download\\";
+    private final String outfilePath = "C:\\xampp\\htdocs\\LireFrontend\\voiceprofiles\\download\\";
 
     public downloadData(String[] tne) {
         this.tones = tne;
@@ -34,7 +34,7 @@ public class downloadData {
         String fileName = "";
         PrintWriter writer = null;
         try {
-            writer = new PrintWriter("C:\\wamp\\www\\LireFrontend\\voiceprofiles\\download\\concats.txt", "UTF-8");
+            writer = new PrintWriter("C:\\xampp\\htdocs\\LireFrontend\\voiceprofiles\\download\\concats.txt", "UTF-8");
             for (String tone : tones) {
                 writer.println("file '"+basePath+tone+"'");
             }
@@ -66,7 +66,7 @@ public class downloadData {
                 "-safe",
                 "0",
                 "-i",
-                "C:\\wamp\\www\\LireFrontend\\voiceprofiles\\download\\concats.txt",
+                "C:\\xampp\\htdocs\\LireFrontend\\voiceprofiles\\download\\concats.txt",
                 "-c",
                 "copy",
                 outfilePath+outfileName);

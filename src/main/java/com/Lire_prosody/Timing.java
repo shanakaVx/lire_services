@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  */
 public class Timing {
     
-    private String ffmpegPath = "C:\\\\lire_libraries\\\\ffmpeg-20160517-git-af3e944-win64-static\\\\bin\\\\ffmpeg";
+    private String ffmpegPath = "C:\\lire_libraries\\ffmpeg-20160517-git-af3e944-win64-static\\bin\\ffmpeg";
     private String Filep = "";
     private String infileName = "";
     private float timing = 0.0f;

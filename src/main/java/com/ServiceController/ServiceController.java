@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ServiceController {
     
-    String basePath = "C:\\wamp\\www\\LireFrontend\\voiceprofiles\\1\\";
+    String basePath = "C:\\xampp\\htdocs\\LireFrontend\\voiceprofiles\\1\\";
     
 /*
 * Shows a help at the base URL
