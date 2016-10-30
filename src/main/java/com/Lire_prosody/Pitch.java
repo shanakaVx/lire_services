@@ -42,7 +42,7 @@ public class Pitch {
     * @param String inFile - input file name
     * @return String
     */
-    public String changePitch(String inFile, String outFile){
+    public String changePitch(String inFile, final String outFile){
         
         System.out.println("changing pitch");
         

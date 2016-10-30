@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import silencesplitdetecttrim.SilenceSplitDetectTrim;
 
 /**
  *
@@ -180,6 +181,23 @@ public class ServiceController {
     
     //Kim do your function here looking at above functions. I have  made a class in com.Lire_recording
     //use that class
+    @RequestMapping(
+            value = "/recording/record",
+            method = RequestMethod.GET)
+    public String splitSilence(@RequestParam(value = "uid", defaultValue = "1") String uid,
+                              @RequestParam(value = "folder", defaultValue = "1") String folder,
+                              @RequestParam(value="fname", defaultValue = "FILE") String fname) 
+    {
+        
+
+        SilenceSplitDetectTrim silence  = new SilenceSplitDetectTrim(uid, folder, fname);
+        silence.identifySilence();
+        silence.splitFromSilence();
+        //silence.removeSilenceAll();
+        
+        return "Still not implemented - timing part!" +uid +" "+ folder +" " + fname;
+    }
+    
     
     @RequestMapping(value = "/download", 
                     method = RequestMethod.GET)
