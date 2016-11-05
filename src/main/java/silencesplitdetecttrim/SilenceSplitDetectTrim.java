@@ -120,7 +120,7 @@ public class SilenceSplitDetectTrim {
        int cnt = 0;
        int lettercount = 0;
        
-       System.out.println("Labbak");
+       System.out.println("inside splitfrom silence function");
        
         for (String start : silence) {
             System.out.println(start);
@@ -138,7 +138,7 @@ public class SilenceSplitDetectTrim {
                 
                 
                 
-                System.out.println("Outputeeddddd paaaaaaaaaaathhh eka - " + outfilePath+uid+"-"+letter+".wav");
+                System.out.println("Output path eka - " + outfilePath+uid+"-"+letter+".wav");
                 
                 String command = ffmpegPath + " -i "+infilePath + folder + "\\" +infileName+" -acodec copy -t "+duration+" -ss "+now+" "+outfilePath+uid+"-"+letter+".wav";
                 System.out.println(command);

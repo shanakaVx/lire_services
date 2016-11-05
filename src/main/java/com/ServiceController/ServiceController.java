@@ -183,19 +183,19 @@ public class ServiceController {
     //use that class
     @RequestMapping(
             value = "/recording/record",
-            method = RequestMethod.GET)
-    public String splitSilence(@RequestParam(value = "uid", defaultValue = "1") String uid,
+            method = RequestMethod.POST)
+    public String splitSilence(@RequestParam(value = "uid", defaultValue = "07") String uid,
                               @RequestParam(value = "folder", defaultValue = "1") String folder,
                               @RequestParam(value="fname", defaultValue = "FILE") String fname) 
     {
-        
+        // iud = check login
 
         SilenceSplitDetectTrim silence  = new SilenceSplitDetectTrim(uid, folder, fname);
         silence.identifySilence();
         silence.splitFromSilence();
         //silence.removeSilenceAll();
         
-        return "Still not implemented - timing part!" +uid +" "+ folder +" " + fname;
+        return "........Trimming! user ID - " +uid +" Folder ID - "+ folder +" Filr name - " + fname;
     }
     
     
