@@ -56,7 +56,7 @@ public class Sentense {
     public List<List<String>> directTokenize(String sent) throws IOException{
         Word w = new Word();
         List<List<String>> letters = new ArrayList<>();
-        letters.add(w.detectLettersNLP(sent));
+        letters.add(w.detectLettersAlgo(sent));
         return letters;
     }
 
