@@ -32,9 +32,46 @@ public class Word {
 
     public Word(String word) throws IOException {
         List<String> letterCode = new ArrayList<>();
-        letterCode = detectLettersNLP(word);
+        letterCode = detectLettersAlgo(word);
         letter.addAll(letterCode);
     }
+    
+    
+    
+    public List<String> detectLettersAlgo(String word){
+
+        String out = "";
+        List<String> codes = new ArrayList<>();
+        
+        for(int i=0; i<word.length(); i++){
+            String lid = "";
+            int code = (int)word.charAt(i);
+            //vowel
+            if (code > 3460 && code < 3479)
+                lid+=",01-"+code;
+            
+            //consonant
+            else if (code > 3481 && code < 3527)
+                lid+=",01-"+code;
+            
+            if (code > 3529 && code < 3571)
+                lid+="-"+code+",";
+            
+            out+=lid;
+        }
+        
+        System.out.println(out);
+                
+        String[] chunks = out.split(",");
+        for(String chunk: chunks){
+            if(!chunk.equals(""))
+                codes.add(chunk);
+        }
+        
+        return codes;
+    }
+    
+    
 
     public List<String> detectLettersNLP(String str) throws FileNotFoundException, IOException {
         InputStream is = new FileInputStream(basePath+"TrainingSets\\sinhala-letters_token-trained-withSPLIT");

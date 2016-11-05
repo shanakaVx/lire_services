@@ -1,5 +1,6 @@
 package com.ServiceController;
 
+import com.Lire_tokenizer.TokenizerTrainer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,9 @@ public class ServiceApplication {
     public static void main(String[] args) {
             SpringApplication.run(ServiceApplication.class, args);
             System.out.println("Lire Services started!");
+//            TokenizerTrainer trainer = new TokenizerTrainer(
+//                    "src\\main\\java\\com\\Lire_tokenizer\\TrainingSets\\NewsPaperTrained-si", 
+//                    "trainingSetSI_Refined.txt");
     }
         
         
