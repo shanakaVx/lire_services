@@ -66,7 +66,7 @@ public class SilenceSplitDetectTrim {
         this.uid = uid;
         this.folder = folder;
         this.infileName = fileName;
-        this.infileName += ".wav";
+      //  this.infileName += ".wav";
         
         System.out.println("Started!!!!---");
         

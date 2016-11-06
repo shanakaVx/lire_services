@@ -1,6 +1,6 @@
 package com.ServiceController;
 
-import com.Lire_tokenizer.TokenizerTrainer;
+//import com.Lire_tokenizer.TokenizerTrainer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
