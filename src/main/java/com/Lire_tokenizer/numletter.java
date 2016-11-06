@@ -179,6 +179,12 @@ public class numletter {
     public String numberToText(String line){
         System.out.println("detecting numbers");
         //regular expression patterns to match
+        
+        String fullstop = "(\\. |\\.\\n)";
+        String comma = "(, |,\\n)";
+        String exclamation = "(! |!\\n)";
+        String question = "(\\? |\\?\\n)";
+        
         String dateYMD = "[0-9]{2,4}(/|-)(0[1-9]|1[0-2]|[1-9])(/|-)(0[1-9]|(1|2)[0-9]|3[0-1]|[1-9])";
         String number = "([0-9]+\\.[0-9]+|[0-9]+)";
         String percentage = "([0-9]+\\.[0-9]+|[0-9]+)%";

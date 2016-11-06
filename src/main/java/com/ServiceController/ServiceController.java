@@ -5,6 +5,7 @@
  */
 package com.ServiceController;
 
+import com.Lire_Authentication.ConnectionManager;
 import com.Lire_prosody.*;
 import com.Lire_tokenizer.*;
 import java.io.File;
@@ -34,7 +35,10 @@ import silencesplitdetecttrim.SilenceSplitDetectTrim;
 public class ServiceController {
     
     String basePath = "C:\\xampp\\htdocs\\LireFrontend\\voiceprofiles\\1\\";
-    
+    private String appKey = "";
+    private final ConnectionManager con = new ConnectionManager("jdbc:mysql://localhost:3306/lire", "root", "");
+    private final int tokenLength = 20;
+     
 /*
 * Shows a help at the base URL
 */
@@ -45,15 +49,108 @@ public class ServiceController {
     public ResponseEntity home(@RequestParam(value = "text", defaultValue = "txt") String text) throws IOException{
         String message = "WELCOME TO LIRE SERVICES | THIS IS THE ROOT | PLEASE CALL THE RELEVANT PATH \n"
                 + "copyright(c) 2016 SLIIT Tone based voice synthesizer framework for voice based application development | Lire Version 0.1";
+        
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
     
 
     
-/*
-* Calls the sentence tree function
-*/
+   /*
+    *
+    * @desc login a user to the system
+    * @return returns the app key
+    *
+    */
+    @RequestMapping(
+        value = "/login",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity login(@RequestParam(value = "un", defaultValue = "txt") String un,
+                                @RequestParam(value = "pw", defaultValue = "txt") String pw)
+    {
+        //this.con = new ConnectionManager("jdbc:mysql://localhost:3306/lire", "root", "");
+        appKey = con.login(un, pw);
+        if(appKey.equals("error!"))
+            return new ResponseEntity<>(appKey, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(appKey, HttpStatus.OK);
+    }
     
+    
+    
+  /*
+    *
+    * @desc login a user to the system
+    * @return returns the app key
+    *
+    */
+    @RequestMapping(
+        value = "/logout",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity logout(@RequestParam(value = "un", defaultValue = "txt") String un,
+                                @RequestParam(value = "appk", defaultValue = "txt") String appk)
+    {
+        if(!(con.checkLogin(appk)))
+            return new ResponseEntity<>("You have to login first", HttpStatus.NOT_FOUND);
+        
+        String msg = con.logOut(un, appk);
+        
+        if(msg.equals("error!"))
+            return new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
+        
+        return new ResponseEntity<>(msg, HttpStatus.OK);
+    }
+    
+    
+    
+    /*
+    *
+    * @desc get the user id when the app key is given
+    * @return returns the user id
+    *
+    */
+    @RequestMapping(
+        value = "/getuid",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getUid(@RequestParam(value = "appk", defaultValue = "txt") String appk){
+        String id = con.getUid(appk);
+        
+        if(id.equals("No UID found"))
+            return new ResponseEntity<>(id, HttpStatus.NOT_FOUND);
+        
+        return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+    
+    
+
+    /*
+    *
+    * @desc get the current user id
+    * @return returns the current user id
+    *
+    */
+    @RequestMapping(
+        value = "/getuidphp",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getUidPhp(){
+        String id = con.getUidPhp();
+        
+        if(id.equals("No UID found"))
+            return new ResponseEntity<>(id, HttpStatus.NOT_FOUND);
+        
+        return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+    
+    
+    
+    /*
+    *
+    * @desc get the scentence tree
+    * @return
+    *
+    */
     @RequestMapping(
         value = "/tokenize/sentenceTree",
         method = RequestMethod.GET,
@@ -67,27 +164,39 @@ public class ServiceController {
     }
     
 
-/*
-* Calls the direct tokenizing function
-*/    
+   /*
+    *
+    * @desc direct tokenize form scentence to letters
+    * @return returns the array of tokenized letters
+    *
+    */   
     @RequestMapping(
         value = "/tokenize/directTokenize",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public List<List<List<String>>> directTokenize(@RequestParam(value = "text", defaultValue = "") String text)
+    public List<List<List<String>>> directTokenize(@RequestParam(value = "text", defaultValue = "") String text,
+                                                   @RequestParam(value = "appk", defaultValue = "") String appk)
     throws FileNotFoundException, IOException
     {
+        //checking if the free token length exceeded and the user is logged in
+        if((text.length()>tokenLength) && !(con.checkLogin(appk))){
+            System.out.println("You have to login to access this!");
+            return null;
+        }
+        
         Para p = new Para();
         return(p.directTokenize(text));
     }
     
     
   
-/*
-* Calls the pitch and timing change function
-*/
-    
+   /*
+    *
+    * @desc prosody is now Depricated!
+    * @return returns the rendered file name
+    *
+    */ 
     @RequestMapping(
             value = "/prosody/changeprosody",
             method = RequestMethod.GET)
@@ -157,38 +266,60 @@ public class ServiceController {
     
     
      
-    
-/*
-* Calls the timing change function
-*/
-    
+    /*
+    *
+    * @desc change the timing of the audio file
+    * @return returns the timining chaged file name
+    *
+    */
     @RequestMapping(
             value = "/prosody/changetiming",
             method = RequestMethod.GET)
     public String changeTiming(@RequestParam(value = "filename", defaultValue = "null") String infile,
-                              @RequestParam(value = "timing", defaultValue = "N") String timing) 
-    {
+                               @RequestParam(value = "timing", defaultValue = "N") String timing,
+                               @RequestParam(value = "appk", defaultValue = "") String appk) {
+
+        if(!(con.checkLogin(appk)))
+            return "You need to login";
         
+        float time = 0.0f;
+        String prefix = "";
+        String output = "";
         //code to call timing
-        
-        return "Still not implemented - timing part!";
+        if ("LT".equals(timing)) {
+            time = 1.2f;
+            prefix = "LT-";
+        } else if ("ST".equals(timing)) {
+            time = 0.5f;
+            prefix = "ST-";
+        }
+        try {
+            Timing timing12 = new Timing("", "C:\\xampp\\htdocs\\LireFrontend\\voiceprofiles\\1\\", infile, time, prefix);
+            output = timing12.ChangeTiming();
+        } catch (Exception e) {
+        }
+
+        return output;
     }
     
     
-/*
-* Calls the recording splitting and saving function
-*/
     
-    //Kim do your function here looking at above functions. I have  made a class in com.Lire_recording
-    //use that class
+    /*
+    *
+    * @desc Records the user's audio
+    * @return returns success on successful audio decoding
+    *
+    */
     @RequestMapping(
             value = "/recording/record",
             method = RequestMethod.POST)
     public String splitSilence(@RequestParam(value = "uid", defaultValue = "07") String uid,
                               @RequestParam(value = "folder", defaultValue = "1") String folder,
-                              @RequestParam(value="fname", defaultValue = "FILE") String fname) 
+                              @RequestParam(value="fname", defaultValue = "FILE") String fname,
+                              @RequestParam(value = "appk", defaultValue = "") String appk) 
     {
-        // iud = check login
+        if(!(con.checkLogin(appk)))
+            return "You need to login";
 
         SilenceSplitDetectTrim silence  = new SilenceSplitDetectTrim(uid, folder, fname);
         silence.identifySilence();
@@ -199,10 +330,22 @@ public class ServiceController {
     }
     
     
+    
+    /*
+    *
+    * @desc downloads the rendered audio in wav format
+    * @return returns downlaod path
+    *
+    */
     @RequestMapping(value = "/download", 
                     method = RequestMethod.GET)
     @ResponseBody
-    public String download(@RequestParam(value = "tones", defaultValue = "null") String tones){
+    public String download(@RequestParam(value = "tones", defaultValue = "null") String tones,
+                           @RequestParam(value = "appk", defaultValue = "") String appk){
+        
+        if(!(con.checkLogin(appk)))
+            return "You need to login";
+        
       System.out.println(tones);
       String parts[] = tones.split(",");
       
@@ -210,5 +353,5 @@ public class ServiceController {
       return dwn.prepare();
     }
     
-    
+ 
 }
