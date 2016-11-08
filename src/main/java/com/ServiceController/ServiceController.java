@@ -36,7 +36,7 @@ public class ServiceController {
     
     String basePath = "C:\\xampp\\htdocs\\LireFrontend\\voiceprofiles\\1\\";
     private String appKey = "";
-    private final ConnectionManager con = new ConnectionManager("jdbc:mysql://localhost:3306/lire", "root", "");
+    private final ConnectionManager con = new ConnectionManager("jdbc:mysql://localhost:3306/lire", "root", "sA456");
     private final int tokenLength = 20;
      
 /*

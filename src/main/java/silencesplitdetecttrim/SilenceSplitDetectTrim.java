@@ -29,8 +29,8 @@ public class SilenceSplitDetectTrim {
 
   
     public String uid="user2";  
-    // need get the iud
-    //variables
+    
+    
     //full path to the ffmpeg.exe
     public String ffmpegPath = "C:\\ffmpeg\\bin\\ffmpeg";
 
@@ -38,12 +38,11 @@ public class SilenceSplitDetectTrim {
     public String infilePath = "C:\\xampp\\htdocs\\lireFrontend\\Voice\\php_sinhala\\Direct_upload\\";
     
     //name of the file to identify the silence
-    // 1.wav name get in PHP soundupload file $uploadpath
     public String infileName = "1.wav";
 
     //path to the folder where all the silence cut audio are outputted
 
-     // public static String outfilePath = "C:\\xampp\\htdocs\\lireFrontend\\Voice\\php_sinhala\\Affter_ffmpeg\\UVProfileSinhala\\";
+     
     public String outfilePath = "C:\\xampp\\htdocs\\lireFrontend\\voiceprofiles\\1\\";
        
     //path to the silence trimmed tones. This may be the original path at the web server
@@ -66,7 +65,7 @@ public class SilenceSplitDetectTrim {
         this.uid = uid;
         this.folder = folder;
         this.infileName = fileName;
-        this.infileName += ".wav";
+      //  this.infileName += ".wav";
         
         System.out.println("Started!!!!---");
         
@@ -120,7 +119,7 @@ public class SilenceSplitDetectTrim {
        int cnt = 0;
        int lettercount = 0;
        
-       System.out.println("Labbak");
+       System.out.println("test-split");
        
         for (String start : silence) {
             System.out.println(start);
@@ -138,7 +137,7 @@ public class SilenceSplitDetectTrim {
                 
                 
                 
-                System.out.println("Outputeeddddd paaaaaaaaaaathhh eka - " + outfilePath+uid+"-"+letter+".wav");
+                System.out.println("Output path - " + outfilePath+uid+"-"+letter+".wav");
                 
                 String command = ffmpegPath + " -i "+infilePath + folder + "\\" +infileName+" -acodec copy -t "+duration+" -ss "+now+" "+outfilePath+uid+"-"+letter+".wav";
                 System.out.println(command);
