@@ -48,7 +48,7 @@ public class Word {
             int code = (int)word.charAt(i);
             
             //punctuation
-            if((code == 46) | (code == 33) | (code == 44) | (code == 63) | (code == 32))
+            if((code == 46) | (code == 33) | (code == 44) | (code == 63) /*| (code == 32)*/)
                 lid+=",-"+code;
             
             //vowel
