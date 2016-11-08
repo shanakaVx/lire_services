@@ -46,13 +46,18 @@ public class Word {
         for(int i=0; i<word.length(); i++){
             String lid = "";
             int code = (int)word.charAt(i);
+            
+            //punctuation
+            if((code == 46) | (code == 33) | (code == 44) | (code == 63) | (code == 32))
+                lid+=",-"+code;
+            
             //vowel
             if (code > 3460 && code < 3479)
-                lid+=",01-"+code;
+                lid+=",-"+code;
             
             //consonant
             else if (code > 3481 && code < 3527)
-                lid+=",01-"+code;
+                lid+=",-"+code;
             
             if (code > 3529 && code < 3571)
                 lid+="-"+code+",";

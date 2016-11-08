@@ -63,18 +63,18 @@ public class ServiceController {
     */
     @RequestMapping(
         value = "/login",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity login(@RequestParam(value = "un", defaultValue = "txt") String un,
+        method = RequestMethod.GET
+        )
+    public String login(@RequestParam(value = "un", defaultValue = "txt") String un,
                                 @RequestParam(value = "pw", defaultValue = "txt") String pw)
     {
         //this.con = new ConnectionManager("jdbc:mysql://localhost:3306/lire", "root", "");
         appKey = con.login(un, pw);
         if(appKey.equals("error!"))
-            return new ResponseEntity<>(appKey, HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(appKey, HttpStatus.OK);
+            return appKey;
+        return appKey;
+   
     }
-    
     
     
   /*
@@ -85,8 +85,7 @@ public class ServiceController {
     */
     @RequestMapping(
         value = "/logout",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+        method = RequestMethod.GET)
     public ResponseEntity logout(@RequestParam(value = "un", defaultValue = "txt") String un,
                                 @RequestParam(value = "appk", defaultValue = "txt") String appk)
     {
@@ -181,7 +180,7 @@ public class ServiceController {
     {
         //checking if the free token length exceeded and the user is logged in
         if((text.length()>tokenLength) && !(con.checkLogin(appk))){
-            System.out.println("You have to login to access this!");
+            System.out.println("needLogin");
             return null;
         }
         
@@ -203,28 +202,32 @@ public class ServiceController {
     
     public String changePitch(@RequestParam(value = "filename", defaultValue = "null") String infile,
                               @RequestParam(value = "pitch", defaultValue = "N") String pitch,
-                              @RequestParam(value = "timing", defaultValue = "N") String timing) 
+                              @RequestParam(value = "appk", defaultValue = "") String appk) 
     {
+        
+        if(!(con.checkLogin(appk)))
+            return "needLogin";
+        
         String outPut = infile+" "+pitch;
                 
-        //change timing first
-        if("L".equals(timing)){
-            if(filePresent("L-"+infile))
-                return "L-"+infile;
-            
-            //code
-            
-            infile = "L-"+infile;
-        }
-
-        else if("S".equals(timing)){
-            if(filePresent("S-"+infile))
-                return "S-"+infile;
-            
-            //code
-            
-            infile = "S-"+infile;
-        }
+//        //change timing first
+//        if("L".equals(timing)){
+//            if(filePresent("L-"+infile))
+//                return "L-"+infile;
+//            
+//            //code
+//            
+//            infile = "L-"+infile;
+//        }
+//
+//        else if("S".equals(timing)){
+//            if(filePresent("S-"+infile))
+//                return "S-"+infile;
+//            
+//            //code
+//            
+//            infile = "S-"+infile;
+//        }
 
         //change pitch
         if("H".equals(pitch)){
@@ -280,7 +283,7 @@ public class ServiceController {
                                @RequestParam(value = "appk", defaultValue = "") String appk) {
 
         if(!(con.checkLogin(appk)))
-            return "You need to login";
+            return "needLogin";
         
         float time = 0.0f;
         String prefix = "";
@@ -344,7 +347,7 @@ public class ServiceController {
                            @RequestParam(value = "appk", defaultValue = "") String appk){
         
         if(!(con.checkLogin(appk)))
-            return "You need to login";
+            return "needLogin";
         
       System.out.println(tones);
       String parts[] = tones.split(",");

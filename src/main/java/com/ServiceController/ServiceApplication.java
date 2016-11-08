@@ -26,11 +26,14 @@ public class ServiceApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 //allowing localhost to access services (WAMP)
-                registry.addMapping("/prosody/changeprosody").allowedOrigins("http://localhost");
-                registry.addMapping("/prosody/changetiming").allowedOrigins("http://localhost");
-                registry.addMapping("/tokenize/sentenceTree").allowedOrigins("http://localhost");
-                registry.addMapping("/tokenize/directTokenize").allowedOrigins("http://localhost");
-                registry.addMapping("/download").allowedOrigins("http://localhost");
+                registry.addMapping("/**");
+//                registry.addMapping("/prosody/changeprosody").allowedOrigins("http://localhost");
+//                registry.addMapping("/prosody/changetiming").allowedOrigins("http://localhost");
+//                registry.addMapping("/tokenize/sentenceTree").allowedOrigins("http://localhost");
+//                registry.addMapping("/tokenize/directTokenize").allowedOrigins("http://localhost");
+//                registry.addMapping("/download").allowedOrigins("http://localhost");
+//                registry.addMapping("/login").allowedOrigins("http://localhost");
+//                registry.addMapping("/getuidphp").allowedOrigins("http://localhost");
                 
                 //allowing localhost:8088 to access serices
 //                registry.addMapping("/prosody/changeprosody").allowedOrigins("http://localhost:8088");
