@@ -223,6 +223,69 @@ public class ConnectionManager {
     
     
     
+    
+    /*
+    *
+    * @desc check if the user has logged in
+    * @param appKey the API MD5 hash pass key
+    * @return true if user exsists false otherwise
+    *
+    */
+    public boolean checkLoginAPI(String appKey){
+        String query = "SELECT * FROM lire.api where apiKey = '"+appKey+"';";
+        System.out.println(query);
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            if(rs.next())
+                return true;
+            
+        } catch (SQLException ex) {
+            System.out.println("sql error "+ex);
+        }
+        return false;
+    }
+    
+    
+    
+    public String buyPlan(String appKey, String un, String plan){
+        String query = "INSERT INTO `lire`.`api` (`email`, `apiKey`, `plan`) VALUES ('"+un+"', '"+appKey+"', '"+plan+"');";
+        
+        try {
+            Statement stmt = con.createStatement();
+            int c = stmt.executeUpdate(query);
+            if(c>0)
+                return appKey;
+        } catch (SQLException ex) {
+            System.out.println("sql error "+ex);
+        }
+        return "failed";
+    }
+    
+    
+    public int getApiCalls(String appKey){
+       String query = "SELECT calls FROM lire.api where apiKey = '"+appKey+"';";
+       String calls = null;
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while(rs.next()){
+                calls = rs.getString("calls");
+            }
+        } catch (SQLException ex) {
+            System.out.println("sql error "+ex);
+        }
+        
+        try {
+            return Integer.parseInt(calls);
+        } catch (Exception e) {
+            return -1;
+        }
+        
+    }
+    
+    
+    
     /*
     *
     * @desc creates the md5 hash from the current date and time

@@ -390,5 +390,83 @@ public class ServiceController {
       return dwn.prepare();
     }
     
+    
+    
+    
+    //---------------------------BUY API--PAYMENT GATEWAY CALLS GOES HERE------------------------
+    
+    
+    /*
+    *
+    * @desc Buys a specific api plan
+    * @return returns the correct apikey when bought
+    *
+    */
+        @RequestMapping(
+        value = "/buyapi",
+        method = RequestMethod.GET)
+        public String buyPlan(@RequestParam(value = "plan", defaultValue = "1") String plan,
+                         @RequestParam(value = "appk", defaultValue = "") String appk)
+        {
+            if(!(con.checkLogin(appk))){
+                System.out.println("needlogin");
+            }
+            
+            String un = con.getUname(appk);
+             if("notfound".equals(un))
+                 return "errorinun";
+            
+            return con.buyPlan(appk, un, plan);
+            
+            
+        }
+    
+    
+    
+    
+    
+    //-----------------------------------------EXTERNAL CALLS------------------------------------
+    
+    /*
+    *
+    * @desc external API for direct download sinhala tts
+    * @return returns the full download URL from the server
+    *
+    */ 
+    @RequestMapping(
+        value = "/extokenize",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public String showPara(@RequestParam(value = "text", defaultValue = "") String text,
+                           @RequestParam(value = "vpid", defaultValue = "") String vpid,
+                           @RequestParam(value = "appk", defaultValue = "") String appk) throws IOException
+    {
+        if(!(con.checkLoginAPI(appk))){
+            System.out.println("wrongappkey");
+            return "wrongappkey";
+        }
+          
+        String serverPath = "C:\\xampp\\htdocs\\LireFrontend\\voiceprofiles\\download\\";
+          
+        Para p = new Para();
+        List<List<List<String>>> directTokenize = p.directTokenize(text); 
+        String out = "";
+        for(List<List<String>> tok1 : directTokenize){
+            for(List<String> tok2 : tok1)
+                for(String tok3 : tok2){
+                    if(tok3.length()>3)
+                        out += "0"+vpid+tok3+".wav,";
+                }
+        }
+        
+        System.out.println(out);
+        String parts[] = out.split(",");
+      
+        downloadData dwn = new downloadData(parts);
+        String ret = serverPath+dwn.prepare();
+        return ret;
+    }
+    
  
 }
