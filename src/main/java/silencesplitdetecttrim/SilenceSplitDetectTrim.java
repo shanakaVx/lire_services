@@ -32,7 +32,7 @@ public class SilenceSplitDetectTrim {
     
     
     //full path to the ffmpeg.exe
-    public String ffmpegPath = "C:\\ffmpeg\\bin\\ffmpeg";
+    public String ffmpegPath = "C:\\lire_libraries\\ffmpeg-20160517-git-af3e944-win64-static\\bin\\ffmpeg";
 
     //path to the folder where the recorded file to identify the silence is located
     public String infilePath = "C:\\xampp\\htdocs\\lireFrontend\\Voice\\php_sinhala\\Direct_upload\\";

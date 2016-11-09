@@ -71,7 +71,9 @@ public class ConnectionManager {
                     String id = getUid(appKey);
                     String intoUid = "INSERT INTO `lire`.`currentuser` (`uid`, `appkey`, `username`) VALUES ('"+id+"', '"+appKey+"', '"+un+"');";
                     stmt.executeUpdate(intoUid);
-                    return appKey;
+                    String uname = getUname(appKey);
+                    String uid = getUid(appKey);
+                    return appKey+","+uname+","+uid;
                 }
             }
             
@@ -111,6 +113,23 @@ public class ConnectionManager {
     
     
     
+    
+    public String register(String mail, String name, String pw){
+        String query = "INSERT INTO `lire`.`users` (`email`, `name`, `password`) VALUES ('"+mail+"', '"+name+"', '"+pw+"');";
+        try {
+            Statement stmt = con.createStatement();
+            int c = stmt.executeUpdate(query);
+            if(c>0)
+                return "success";
+        } catch (Exception e) {
+            System.out.println("Sql error "+e);
+        }
+        
+        return "error";
+    }
+    
+    
+    
     /*
     *
     * @desc get uid when the appkey given
@@ -133,6 +152,29 @@ public class ConnectionManager {
         return uid;
     }
     
+
+    /*
+    *
+    * @desc get the current UID
+    * @return returns the urrent uid of the user
+    *
+    */
+    public String getUname(String appk){
+        String query = "Select name from lire.users where appKey = '"+appk+"';";
+        System.out.println(query);
+        String uid = "notfound";
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while(rs.next()){
+                uid = rs.getString("name");
+            }
+        } catch (Exception e) {
+            System.out.println("Sql error - "+e);
+        }
+        System.out.println(uid);
+        return uid;
+    }
     
     
     /*
@@ -178,7 +220,7 @@ public class ConnectionManager {
         }
         return false;
     }
-
+    
     
     
     /*

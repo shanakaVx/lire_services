@@ -36,7 +36,7 @@ public class ServiceController {
     
     String basePath = "C:\\xampp\\htdocs\\LireFrontend\\voiceprofiles\\1\\";
     private String appKey = "";
-    private final ConnectionManager con = new ConnectionManager("jdbc:mysql://localhost:3306/lire", "root", "sA456");
+    private final ConnectionManager con = new ConnectionManager("jdbc:mysql://localhost:3306/lire", "root", "");
     private final int tokenLength = 20;
      
 /*
@@ -101,6 +101,24 @@ public class ServiceController {
     }
     
     
+    /*
+    *
+    * @desc Register a user in the db
+    * @return returns number of rows created, otherwise "error"
+    *
+    */
+    @RequestMapping(
+        value = "/register",
+        method = RequestMethod.GET)
+    public String register(@RequestParam(value = "mail", defaultValue = "txt") String mail,
+                           @RequestParam(value = "name", defaultValue = "txt") String name,
+                           @RequestParam(value = "pw", defaultValue = "txt") String pw)
+    {
+        String msg = con.register(mail, name, pw);
+        return msg;
+    }
+    
+    
     
     /*
     *
@@ -119,6 +137,21 @@ public class ServiceController {
             return new ResponseEntity<>(id, HttpStatus.NOT_FOUND);
         
         return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+    
+    
+        /*
+    *
+    * @desc get the user id when the app key is given
+    * @return returns the user id
+    *
+    */
+    @RequestMapping(
+        value = "/getuname",
+        method = RequestMethod.GET)
+    public String getUname(@RequestParam(value = "appk", defaultValue = "txt") String appk){
+        String id = con.getUname(appk);
+        return id;
     }
     
     
@@ -321,6 +354,7 @@ public class ServiceController {
                               @RequestParam(value="fname", defaultValue = "FILE") String fname,
                               @RequestParam(value = "appk", defaultValue = "") String appk) 
     {
+        System.out.println("Recording");
         if(!(con.checkLogin(appk)))
             return "You need to login";
 
